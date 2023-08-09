@@ -36,6 +36,7 @@ def set_options_limit(limit: str):
 
 
 def options_data() -> dict:
+    global number_of_votes
     """Storing options chosen
 
     Returns:
@@ -44,30 +45,28 @@ def options_data() -> dict:
     vote = ""
     while vote != quit:
         vote = input("What do you choose: ")
+        number_of_votes += 1
         if vote not in all_options:
             print("Option not provided, choose again")
             continue
         selected_options.append(vote)
         get_percentage()
-        print(f"0 people have chosen {vote} | percentage from all options")
 
 
-def get_percentage() -> int | float:
+def get_percentage():
     """Getting percentage of each option chosen"""
-    db = []
-    for option in all_options:
-        option_data = {"option": option, "count": 0}
-        db.append(option_data)
-    print(db)
-    selected_options = "".join(selected_options)
-
-    print("Latest selected option", selected_options[-1])
     # Get the number of occurrences in selected options
-    # print("latest chosen option", selected_options)
+    for ch in selected_options:
+        if ch not in selected_options:
+            counter[ch] = "".join(selected_options).count(ch)
+        counter[ch] = "".join(selected_options).count(ch)
+    print(counter)
+    print(
+        f"People who chose {selected_options[-1]}: {selected_options[-1]} -> {counter[selected_options[-1]]} out of {number_of_votes}"
+    )
 
 
 all_options = []
 selected_options = []
-
-# "a = "12333333332123"
-# print(a.count("3"))"
+counter = {}
+number_of_votes = 0
