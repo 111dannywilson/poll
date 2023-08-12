@@ -14,7 +14,7 @@ def set_poll(question: str, options: list):
     for number, options in enumerate(poll["poll"]["options"]):
         number += 1
         print(f"{number}. {options}")
-    print("Select number of poll option to vote")
+    print("Select poll option to vote")
 
 
 def validate_input(question) -> str:
@@ -44,11 +44,15 @@ def options_data() -> dict:
     """
     vote = ""
     while vote != quit:
-        vote = input("What do you choose: ")
-        number_of_votes += 1
+        vote = input("What do you choose: ").lower()
+        if vote == "d":
+            display_results()
+            break
         if vote not in all_options:
             print("Option not provided, choose again")
             continue
+        if vote and vote in all_options and vote != "d":
+            number_of_votes += 1
         selected_options.append(vote)
         get_percentage()
 
@@ -66,12 +70,25 @@ def get_percentage():
     )
 
 
+def display_results():
+    percentage = 0
+    print(f"Total Voters: {number_of_votes}")
+    for key, value in counter.items():
+        print(
+            f"""
+Number of people who chose {key}: {value}
+"""
+        )
+
+
 all_options = []
 selected_options = []
 counter = {}
 number_of_votes = 0
 
 
+a = 5
+print((2.9 / 100) * 3)
 # def isPhoneNumber(text):
 #     if len(text) != 12:
 #         return False
