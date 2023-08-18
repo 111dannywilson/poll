@@ -4,7 +4,6 @@ from funcs import (
     validate_input,
     all_options,
     options_data,
-    get_percentage,
 )
 
 question = input("Your Question: ")
@@ -15,5 +14,3 @@ set_poll(question, all_options)
 
 
 options_data()
-
-# get_percentage()
